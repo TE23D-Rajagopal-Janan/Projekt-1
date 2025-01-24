@@ -12,3 +12,4 @@ C:\Users\janan.rajagopal\Documents\programmering\Projekt 1\Projekt 1\obj\Debug\n
 C:\Users\janan.rajagopal\Documents\programmering\Projekt 1\Projekt 1\obj\Debug\net8.0\Projekt 1.pdb
 C:\Users\janan.rajagopal\Documents\programmering\Projekt 1\Projekt 1\obj\Debug\net8.0\Projekt 1.genruntimeconfig.cache
 C:\Users\janan.rajagopal\Documents\programmering\Projekt 1\Projekt 1\obj\Debug\net8.0\ref\Projekt 1.dll
+C:\Users\janan.rajagopal\Documents\programmering\Projekt 1\Projekt 1\obj\Debug\net8.0\Projekt 1.sourcelink.json
