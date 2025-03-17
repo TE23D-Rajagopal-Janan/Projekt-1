@@ -1,18 +1,19 @@
 ﻿int enemyHp = 35;
 int hp = 20;
+string p1Name;
+int dmg;
 // player p1 = new();
 // p1.hp = 100;
 // p1.weapon = "sword";
 // p1.minDamage = 3;
 // p1.maxDamage = 7;
 
-
 Console.WriteLine("What is your Charecter name");
 bool p1NameCheck = false;
-string p1Name = Console.ReadLine(); 
+p1Name = Console.ReadLine(); 
 int intNameCheck = 0;
 p1NameCheck = int.TryParse(p1Name, out intNameCheck);
-while (p1Name == "" || p1NameCheck)
+while (p1Name == "" || p1NameCheck)  
 {
       if (p1NameCheck) // Check if input is a number
     {
@@ -23,22 +24,36 @@ while (p1Name == "" || p1NameCheck)
     p1NameCheck = int.TryParse(p1Name, out intNameCheck);
 }   
 
-Console.WriteLine(HealthBar);
+HealthBar(); // skriver ut helthbar
+Console.WriteLine("You have just woken up in the middle of an island ");
+Console.WriteLine("Choose a direction go either 1. forward or 2. back (choose by typing on 1 or 2)"); 
+string path1; 
+path1 = Console.ReadLine();
+if (path1 == "1")
+{
+  Console.WriteLine("You found a rusty sword, whould you like to pick it up? (yes/no)");
+  Console
+}
 
 Console.ReadLine();
-
-static void HealthBar()
+ void HealthBar()
 {
     Console.Write("[");  
     for (int i = 0; i < hp; i++)
     {
     Console.Write("█");
     }
+    Console.Write("]");  
+    Console.WriteLine();
 }
 
-static void combat()
+ void combat()
 {
-    int attack = Random.Shared.Next(4);
+    dmg = Random.Shared.Next(0, 100);
+    if (dmg == 0)
+    {
+        dmg = 100;
+    }
 
 }
 // class player 
