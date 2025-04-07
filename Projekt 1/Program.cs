@@ -24,15 +24,16 @@ while (p1Name == "" || p1NameCheck)
     p1NameCheck = int.TryParse(p1Name, out intNameCheck);
 }   
 
+Console.WriteLine("You Have Just Woken Up In The Middle Of An Island ");
+Console.Write("This is you helthbar = "); 
 HealthBar(); // skriver ut helthbar
-Console.WriteLine("You have just woken up in the middle of an island ");
-Console.WriteLine("Choose a direction go either 1. forward or 2. back (choose by typing on 1 or 2)"); 
-string path1; 
-path1 = Console.ReadLine();
-if (path1 == "1")
+Console.WriteLine("");
+Console.WriteLine("Choose A Direction To Go, Press They Key To Choose One Of The Following  forward or 2. back (choose by typing on 1 or 2)"); 
+string path; 
+path = Console.ReadLine();
+if (path == "1")
 {
-  Console.WriteLine("You found a rusty sword, whould you like to pick it up? (yes/no)");
-  Console
+  Console.WriteLine("You Found A Rusty Sword");
 }
 
 Console.ReadLine();
