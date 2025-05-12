@@ -1,5 +1,4 @@
-﻿int enemyHp = 10;
-int hp = 20;
+﻿int hp = 20;
 int maxHp = 20;
 
 List<string> inventory = new List<string>(); // inventory 
@@ -20,7 +19,6 @@ while (p1Name == "" || p1NameCheck)
     p1Name = Console.ReadLine();
     p1NameCheck = int.TryParse(p1Name, out intNameCheckNumb);
 }
-
 Console.WriteLine($"Hi {p1Name}, you have just woken up in the middle of an island, having no memory of how you got here");
 Console.Write("This is you healthbar = ");
 HealthBar(hp, maxHp); // Shows out healthbar
@@ -45,13 +43,15 @@ if (path == "1")
     inventory.Add("Rusty Sword");
     Console.WriteLine("Rusty Sword has been added to your inventory.");
     Inventory(inventory);
+Console.WriteLine("You have encountered a goblin who seems weak however he seems eager to fight, \nDo you wanna fight (1) or try to run (2)");
 }
 else if (path == "2")
 {
-    Console.WriteLine("While turning your back you get attacked by a goblin, you lost 5 hp / 30 hp max");
+    Console.WriteLine("While turning your back you get attacked by a goblin, you lost 5 hp");
     hp -= 5;
+    HealthBar(hp, maxHp);
+Console.WriteLine("Do you wanna fight (1) or try to run (2)");
 }
-Console.WriteLine("You have encountered a goblin who seems weak however he seems eager to fight, \nDo you wanna fight (1) or try to run (2)");
 Console.WriteLine("Tip: You can get rewards from killing it");
 while (true)
 {
@@ -65,6 +65,7 @@ while (true)
         Console.WriteLine("Invalid input. Please enter 1 or 2.");
     }
 }
+    int enemyHp = 15;
 if (path == "1")
 {
     hp = Combat("Goblin", hp, enemyHp, inventory, maxHp);
@@ -113,6 +114,7 @@ static void Inventory(List<string> inventory)
     else
     {
         Console.WriteLine("Invalid input. Please enter i to see inventory or enter key to skip");
+        inv = Console.ReadLine(); // need to be written in the loop to refresh the inv string, or else if i declar it in the loop i can't use the string in other loops
     }
 }
 
@@ -129,7 +131,7 @@ static void Inventory(List<string> inventory)
             {
                 Console.WriteLine("-" + item);
             }
-            Console.WriteLine("press enter to move forward");
+            Console.WriteLine("press any key to move on");
             Console.ReadLine();
         }
     }
@@ -149,13 +151,25 @@ static void HealthBar(int hp, int maxHp)
     Console.Write("]");
     Console.WriteLine();
 }
+
 static int Healing(int hp, int maxHp, List<string> inventory)
 {
     if (inventory.Contains("Healing Potion"))
     {
         Console.WriteLine("Do you want to use a Healing Potion? (yes/no)");
         string usePotion = Console.ReadLine();
-
+        while (true)
+{
+    if (usePotion == "yes" || usePotion == "no")
+    {
+        break; // Break while loop
+    }
+    else
+    {
+        Console.WriteLine("Invalid input. Please enter i to see inventory or enter key to skip");
+        usePotion = Console.ReadLine();
+    }
+}
         if (usePotion == "yes")
         {
             hp += 5;
@@ -169,11 +183,12 @@ static int Healing(int hp, int maxHp, List<string> inventory)
             Console.Write("hp ");
             HealthBar(hp, maxHp);
             Console.WriteLine("Press enter");
-            // Console.ReadLine();
+            Console.ReadLine();
         }
     }
     return hp;
 }
+
 static int Combat(string enemyName, int hp, int enemyHp, List<string> inventory,int  maxHp)
 {
     int dmg;
@@ -183,12 +198,12 @@ static int Combat(string enemyName, int hp, int enemyHp, List<string> inventory,
         // Player attacks
         if (inventory.Contains("Rusty Sword"))
         {
-            dmg = Random.Shared.Next(10, 20); // dmg with sword
+            dmg = Random.Shared.Next(10, 15); // dmg with sword
             Console.WriteLine("You attack using (Rusty Sword)");
         }
         else
         {
-            dmg = Random.Shared.Next(0, 10); // Regular damage
+            dmg = Random.Shared.Next(5, 10); // Regular damage
             Console.WriteLine("You attack with your bare fists");
         }
 
@@ -202,6 +217,7 @@ static int Combat(string enemyName, int hp, int enemyHp, List<string> inventory,
             Console.WriteLine($"{enemyName} dropped a healing potion!");
             Console.WriteLine("Healing Potion have been added to your inventory");
             inventory.Add("Healing Potion");
+            Console.WriteLine("Press Enter to continue...");
             break; 
         }
 
@@ -211,7 +227,7 @@ static int Combat(string enemyName, int hp, int enemyHp, List<string> inventory,
             dmg = Random.Shared.Next(10, 15); // Random damage 
         }
         else{
-        dmg = Random.Shared.Next(5, 10);
+        dmg = Random.Shared.Next(1, 7);
         }
         hp -= dmg;
         hp = Math.Max(0, hp);
@@ -227,7 +243,7 @@ static int Combat(string enemyName, int hp, int enemyHp, List<string> inventory,
             Environment.Exit(0);
         }
 
-        // Console.WriteLine("Press Enter to continue...");
+        Console.WriteLine("Press Enter to continue...");
         Console.ReadLine();
     }
     return hp;
