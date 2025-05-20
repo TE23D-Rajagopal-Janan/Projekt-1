@@ -1,9 +1,12 @@
-﻿int hp = 20;
+﻿// Players current and maximum health possible
+int hp = 20;
 int maxHp = 20;
 
-List<string> inventory = new List<string>(); // inventory 
+// The players inventory 
+List<string> inventory = new List<string>(); // Vi använder en lista eftersom inventoryn ska kunna ändras (lägga till/ta bort föremål).
 
-Console.WriteLine("What is your Charecter name");
+// Checks that the player writes a name (not leaving it blank or writing numbers)
+Console.WriteLine("What is your Character name"); 
 bool p1NameCheck = false;
 string p1Name;
 p1Name = Console.ReadLine();
@@ -19,23 +22,28 @@ while (p1Name == "" || p1NameCheck)
     p1Name = Console.ReadLine();
     p1NameCheck = int.TryParse(p1Name, out intNameCheckNumb);
 }
+//Game starts 
 Console.WriteLine($"Hi {p1Name}, you have just woken up in the middle of an island, having no memory of how you got here");
 Console.Write("This is you healthbar = ");
 HealthBar(hp, maxHp); // Shows out healthbar
+
+// The player gets to choose the path forward or backward. The input is checked to ensure it is valid.
 Console.WriteLine("\nChoose A Direction To Go, Press They Key To Choose One Of The Following: \nForward (1) or back (2) (choose by typing on 1 or 2 into the console)");
 string path;
+// while loop checks if inputs are valid 
 while (true)
 {
     path = Console.ReadLine();
     if (path == "1" || path == "2")
     {
-        break; // Break while loop
+        break; // Breaks while loop
     }
     else
     {
         Console.WriteLine("Invalid input. Please enter 1 or 2.");
     }
 }
+// The player gets to choose the path forward or backward. The input is checked to ensure it is valid.
 if (path == "1")
 {
     Console.WriteLine("You Found A Rusty Sword");
@@ -43,7 +51,7 @@ if (path == "1")
     inventory.Add("Rusty Sword");
     Console.WriteLine("Rusty Sword has been added to your inventory.");
     Inventory(inventory);
-Console.WriteLine("You have encountered a goblin who seems weak however he seems eager to fight, \nDo you wanna fight (1) or try to run (2)");
+    Console.WriteLine("You have encountered a goblin who seems weak however he seems eager to fight, \nDo you wanna fight (1) or try to run (2)");
 }
 else if (path == "2")
 {
@@ -53,10 +61,13 @@ else if (path == "2")
 Console.WriteLine("Do you wanna fight (1) or try to run (2)");
 }
 Console.WriteLine("Tip: You can get rewards from killing it");
+
+// while loop checks if inputs are valid 
+string combatChoice;
 while (true)
 {
-    path = Console.ReadLine();
-    if (path == "1" || path == "2")
+    combatChoice = Console.ReadLine();
+    if (combatChoice == "1" || combatChoice == "2")
     {
         break; // Break while loop
     }
@@ -66,18 +77,21 @@ while (true)
     }
 }
     int enemyHp = 15;
-if (path == "1")
+if (combatChoice == "1")
 {
+// A battle begins. The player can damage the enemy and take damage themselves.
+// If the enemy is defeated, the player receives healing potion.
     hp = Combat("Goblin", hp, enemyHp, inventory, maxHp);
     Console.ReadLine();
 }
 Console.WriteLine("\nYou move deeper into the island...");
 Console.WriteLine("A second goblin jumps out from a bush and attacks you!");
 Console.WriteLine("\n Press 1 to start the fight");
+string forceCombat; 
 while (true)
 {
-    path = Console.ReadLine();
-    if (path == "1")
+    forceCombat = Console.ReadLine();
+    if (forceCombat == "1")
     {
         break; // Break while loop
     }
@@ -89,9 +103,9 @@ while (true)
 enemyHp = 15;
 hp = Combat("Goblin", hp, enemyHp, inventory, maxHp);
 
-Inventory(inventory);
+Inventory(inventory); // Shows what the player has in their inventory. The player can press 'i' to see the contents.
 Console.ReadLine();
-hp = Healing(hp, maxHp, inventory); 
+hp = Healing(hp, maxHp, inventory);  // If the player has a healing potion, they can use it to regain HP
 
 Console.WriteLine("\nYou find a mysterious gate... A BOSS appears!");
 enemyHp = 30;
@@ -166,7 +180,7 @@ static int Healing(int hp, int maxHp, List<string> inventory)
     }
     else
     {
-        Console.WriteLine("Invalid input. Please enter i to see inventory or enter key to skip");
+        Console.WriteLine("Invalid input. Please enter 'yes' or 'no'");
         usePotion = Console.ReadLine();
     }
 }
@@ -189,7 +203,8 @@ static int Healing(int hp, int maxHp, List<string> inventory)
     return hp;
 }
 
-static int Combat(string enemyName, int hp, int enemyHp, List<string> inventory,int  maxHp)
+// The combat system for the game 
+static int Combat(string enemyName, int hp, int enemyHp, List<string> inventory, int maxHp)
 {
     int dmg;
     Console.WriteLine($"Fight with {enemyName} has started");
@@ -218,7 +233,7 @@ static int Combat(string enemyName, int hp, int enemyHp, List<string> inventory,
             Console.WriteLine("Healing Potion have been added to your inventory");
             inventory.Add("Healing Potion");
             Console.WriteLine("Press Enter to continue...");
-            break; 
+            break;
         }
 
         // Enemy attacks
@@ -226,14 +241,15 @@ static int Combat(string enemyName, int hp, int enemyHp, List<string> inventory,
         {
             dmg = Random.Shared.Next(10, 15); // Random damage 
         }
-        else{
-        dmg = Random.Shared.Next(1, 7);
+        else
+        {
+            dmg = Random.Shared.Next(1, 7);
         }
         hp -= dmg;
         hp = Math.Max(0, hp);
         Console.WriteLine($"The enemy hits you for {dmg} damage! Your HP: {hp} hp");
         HealthBar(hp, maxHp);
-        hp = Healing(hp, maxHp, inventory);
+        hp = Healing(hp, maxHp, inventory); //Displays players HP 
 
 
         if (hp <= 0)
@@ -242,7 +258,6 @@ static int Combat(string enemyName, int hp, int enemyHp, List<string> inventory,
             Console.ReadLine();
             Environment.Exit(0);
         }
-
         Console.WriteLine("Press Enter to continue...");
         Console.ReadLine();
     }
